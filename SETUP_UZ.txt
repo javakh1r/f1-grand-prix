@@ -1,0 +1,59 @@
+F1 GRAND PRIX — ONLINE MULTIPLAYER SOZLASH (UZ)
+
+MUHIM:
+Bu HTML internet orqali multiplayer ishlashi uchun Firebase Realtime Database backendiga ulanadi.
+Firebase loyihasini sizning nomingizdan yaratib/deploy qilib bera olmayman; buning uchun sizning Firebase akkauntingizda bir martalik sozlash kerak.
+
+1) Firebase loyihasi yarating:
+   https://console.firebase.google.com/
+   - Add project bosing.
+   - Project nomini kiriting (masalan: f1-grand-prix).
+   - Project ichida Realtime Database -> Create Database.
+   - Database region tanlang.
+
+2) Anonymous login yoqing:
+   - Build -> Authentication -> Get started.
+   - Sign-in method -> Anonymous -> Enable -> Save.
+
+3) Realtime Database Rules bo‘limiga quyidagini kiriting va Publish bosing:
+{
+  "rules": {
+    "f1GrandPrixRooms": {
+      "$room": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+  }
+}
+   Bu boshlang‘ich prototip qoidasi: Firebase anonymous login qilgan foydalanuvchilar xonalarni o‘qishi/yozishi mumkin.
+   Ommaga katta miqyosda chiqarishdan oldin server-side validatsiya va qat’iyroq rules qo‘shish kerak.
+
+4) Web app config oling:
+   - Project settings (⚙) -> General -> Your apps -> Add app -> Web (</>).
+   - App nomini kiriting va Register app.
+   - Firebase SDK config ichidagi apiKey, authDomain, databaseURL, projectId, appId qiymatlarini nusxalang.
+
+5) F1_Grand_Prix_Online.html faylini Notepad yoki VS Code bilan oching.
+   FIREBASE_CONFIG degan joyni toping va quyidagilarni o‘zingizning qiymatlaringiz bilan almashtiring:
+   apiKey
+   authDomain
+   databaseURL
+   projectId
+   appId
+   databaseURL Firebase Console -> Realtime Database sahifasida ko‘rsatilgan URL bilan bir xil bo‘lishi shart.
+
+6) HTML faylni internetga HTTPS orqali joylang:
+   GitHub Pages, Netlify yoki Vercel ishlatish mumkin.
+   Faylni faqat kompyuteringizda file:// orqali ochish o‘rniga HTTPS linkdan oching.
+   Do‘stlaringizga o‘sha HTTPS linkni yuboring.
+
+O‘ynash:
+- Birinchi o‘yinchi nik yozib Xona ochish tugmasini bosadi.
+- 4 belgili kodni do‘stlariga yuboradi.
+- Boshqalar nik yozib kod bilan Qo‘shilish tugmasini bosadi.
+- Xonadagi ro‘yxat yangilanadi; host START bosadi.
+
+Cheklov:
+Bu versiya Firebase orqali xona, lobby presence, sozlamalar va haydovchi holatini sinxronlash uchun tayyorlangan.
+Real-time poyga harakatlari ko‘p o‘yinchida ishlashi uchun internet kechikishi va hostingda amaliy sinov zarur.
